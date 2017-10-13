@@ -158,12 +158,18 @@ PRODUCT_COPY_FILES += \
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += device/qcom/sdm845/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
+# Powerhint configuration file
+PRODUCT_COPY_FILES += device/qcom/sdm845/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
+
 # Camera configuration file. Shared by passthrough/binderized camera HAL
 PRODUCT_PACKAGES += camera.device@3.2-impl
 PRODUCT_PACKAGES += camera.device@1.0-impl
 PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-impl
 # Enable binderized camera HAL
 PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-service
+
+PRODUCT_PACKAGES += \
+		    android.hardware.usb@1.0-service
 
 # WLAN host driver
 ifneq ($(WLAN_CHIPSET),)
@@ -203,6 +209,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.relative_humidity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.relative_humidity.xml \
     frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml
 
+#Enable debug libraries
+ifeq ($(TARGET_BUILD_VARIANT),userdebug)
+PRODUCT_PACKAGES += libstagefright_debug \
+                    libmediaplayerservice_debug
+endif
 
 # Kernel modules install path
 KERNEL_MODULES_INSTALL := dlkm
