@@ -215,6 +215,10 @@ PRODUCT_PACKAGES += libstagefright_debug \
                     libmediaplayerservice_debug
 endif
 
+# High performance VR feature
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.vr.high_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vr.high_performance.xml
+
 # Kernel modules install path
 KERNEL_MODULES_INSTALL := dlkm
 KERNEL_MODULES_OUT := out/target/product/$(PRODUCT_NAME)/$(KERNEL_MODULES_INSTALL)/lib/modules
@@ -250,3 +254,10 @@ PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 KMGK_USE_QTI_SERVICE := true
 
 DEVICE_PACKAGE_OVERLAYS += device/qcom/sdm845/overlay
+
+#VR
+PRODUCT_PACKAGES += android.hardware.vr@1.0-impl \
+                    android.hardware.vr@1.0-service
+#Thermal
+PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
+                    android.hardware.thermal@1.0-service

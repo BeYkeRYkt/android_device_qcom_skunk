@@ -54,6 +54,9 @@ media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 mm.enable.qcom_parser=13631487
 persist.mm.enable.prefetch=true
 
+#Netflix custom property
+ro.netflix.bsp_rev=Q845-05000-1
+
 #
 # system props for the data modules
 #
@@ -148,7 +151,7 @@ ro.hwui.texture_cache_flushrate=0.4
 ro.hwui.text_small_cache_width=1024
 ro.hwui.text_small_cache_height=1024
 ro.hwui.text_large_cache_width=2048
-ro.hwui.text_large_cache_height=1024
+ro.hwui.text_large_cache_height=4096
 
 config.disable_rtt=true
 
@@ -160,11 +163,8 @@ ro.kernel.qemu.gles=0
 sdm.debug.disable_scalar=0
 qemu.hw.mainkeys=0
 sdm.debug.disable_inline_rotator=1
-sdm.debug.disable_display_ubwc_ff_voting=1
 sdm.debug.prefersplit=1
-
-#Disable backpressure
-debug.sf.disable_backpressure=1
+sdm.debug.disable_dest_scalar=1
 
 #enable IZat OptInApp overlay
 persist.vendor.overlay.izat.optin=rro
@@ -175,3 +175,11 @@ persist.backup.ntpServer="0.pool.ntp.org"
 #IOP properties
 iop.enable_uxe=1
 iop.enable_prefetch_ofr=1
+
+# Property to enable app trigger
+ro.vendor.at_library=libqti-at.so
+persist.vendor.qti.games.gt.prof=1
+
+#min/max cpu in core control
+ro.vendor.qti.core_ctl_min_cpu=2
+ro.vendor.qti.core_ctl_max_cpu=4
