@@ -77,6 +77,7 @@ on boot
     start rmt_storage
     start rfs_access
     write /dev/cpuset/top-app/cpus 0-3
+    write /dev/cpuset/audio-app/cpus 1-2
     write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-3
     write /dev/cpuset/background/cpus 0-3
@@ -100,9 +101,6 @@ on boot
     mkdir /persist/speccfg 0770 system system
     chmod 0660 /persist/speccfg/spec
     chown system system /persist/speccfg/spec
-
-#Load WLAN driver
-    insmod /vendor/lib/modules/qca_cld3_wlan.ko
 
 #start camera server as daemon
 #service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -330,7 +328,7 @@ service imsdatadaemon /system/vendor/bin/imsdatadaemon
 #   group gps system qcom_diag diag log inet net_raw
 #   disabled
 
-service imsrcsservice /system/vendor/bin/imsrcsd
+service vendor.imsrcsservice /system/vendor/bin/imsrcsd
     class main
     user system
     group radio diag inet log
@@ -347,7 +345,7 @@ service ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
-    start imsrcsservice
+    start vendor.imsrcsservice
 
 service ppd /vendor/bin/mm-pp-dpps
     class late_start

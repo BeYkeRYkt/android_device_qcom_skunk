@@ -10,7 +10,8 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := kryo300
+#TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
@@ -56,6 +57,9 @@ BOARD_USES_RECOVERY_AS_BOOT := true
 ifneq ($(AB_OTA_UPDATER),true)
     TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_msm
 endif
+
+#Enable Charging Icon
+TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
 
 #Enable split vendor image
 ENABLE_VENDOR_IMAGE := true

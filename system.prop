@@ -162,7 +162,10 @@ persist.radio.atfwd.start=true
 ro.kernel.qemu.gles=0
 sdm.debug.disable_scalar=0
 qemu.hw.mainkeys=0
-sdm.debug.disable_inline_rotator=1
+
+sdm.debug.disable_inline_rotator=0
+sdm.debug.disable_inline_rotator_secure=0
+
 sdm.debug.prefersplit=1
 sdm.debug.disable_dest_scalar=1
 
@@ -173,7 +176,7 @@ persist.vendor.overlay.izat.optin=rro
 persist.backup.ntpServer="0.pool.ntp.org"
 
 #IOP properties
-iop.enable_uxe=1
+iop.enable_uxe=0
 iop.enable_prefetch_ofr=1
 
 # Property to enable app trigger
@@ -183,3 +186,6 @@ persist.vendor.qti.games.gt.prof=1
 #min/max cpu in core control
 ro.vendor.qti.core_ctl_min_cpu=2
 ro.vendor.qti.core_ctl_max_cpu=4
+
+#Expose aux camera for below packages
+vendor.camera.aux.packagelist=org.codeaurora.snapcam
