@@ -1,11 +1,16 @@
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
-# Override heap growth limit due to high display density on device
-PRODUCT_PROPERTY_OVERRIDES += \
-  dalvik.vm.heapgrowthlimit=256m
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+TARGET_DEFINES_DALVIK_HEAP := true
 $(call inherit-product, device/qcom/common/common64.mk)
+#Inherit all except heap growth limit from phone-xhdpi-2048-dalvik-heap.mk
+PRODUCT_PROPERTY_OVERRIDES  += \
+  dalvik.vm.heapstartsize=8m \
+  dalvik.vm.heapsize=512m \
+  dalvik.vm.heaptargetutilization=0.75 \
+  dalvik.vm.heapminfree=512k \
+  dalvik.vm.heapmaxfree=8m
+
 
 # system prop for opengles version
 #
@@ -150,6 +155,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
+
+# Context hub HAL
+PRODUCT_PACKAGES += \
+    android.hardware.contexthub@1.0-impl.generic \
+    android.hardware.contexthub@1.0-service
 
 # FBE support
 PRODUCT_COPY_FILES += \
