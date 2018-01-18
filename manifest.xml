@@ -453,7 +453,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <hal format="hidl">
        <name>com.qualcomm.qti.uceservice</name>
        <transport>hwbinder</transport>
-       <version>1.0</version>
+       <version>1.1</version>
        <interface>
          <name>IUceService</name>
          <instance>com.qualcomm.qti.uceservice</instance>
@@ -753,6 +753,16 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>default</instance>
         </interface>
     </hal>
+    <!-- Media Cas -->
+    <hal format="hidl">
+        <name>android.hardware.cas</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMediaCasService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <!-- Tether Offload -->
     <hal format="hidl">
         <name>android.hardware.tetheroffload.config</name>
@@ -789,6 +799,17 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <version>1.0</version>
         <interface>
             <name>IThermal</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <!-- Context Hub HAL Service -->
+    <hal format="hidl">
+        <name>android.hardware.contexthub</name>
+        <transport>hwbinder</transport>
+        <impl level="generic"></impl>
+        <version>1.0</version>
+        <interface>
+            <name>IContexthub</name>
             <instance>default</instance>
         </interface>
     </hal>

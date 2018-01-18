@@ -163,6 +163,9 @@ TARGET_USES_HWC2 := true
 TARGET_USES_QCOM_DISPLAY_BSP := true
 TARGET_USES_COLOR_METADATA := true
 
+# Enable IOP-HAL
+TARGET_USES_IOPHAL := true
+
 # Enable sensor multi HAL
 USE_SENSOR_MULTI_HAL := true
 
