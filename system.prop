@@ -55,7 +55,7 @@ mm.enable.qcom_parser=13631487
 persist.mm.enable.prefetch=true
 
 #Netflix custom property
-ro.netflix.bsp_rev=Q845-05000-1
+ro.netflix.bsp_rev=Q845-14477-1
 
 #
 # system props for the data modules
@@ -161,11 +161,10 @@ ro.kernel.qemu.gles=0
 sdm.debug.disable_scalar=0
 qemu.hw.mainkeys=0
 
-sdm.debug.disable_inline_rotator=0
-sdm.debug.disable_inline_rotator_secure=0
+sdm.debug.disable_inline_rotator=1
+sdm.debug.disable_inline_rotator_secure=1
 
 sdm.debug.prefersplit=1
-sdm.debug.disable_dest_scalar=1
 
 #enable IZat OptInApp overlay
 persist.vendor.overlay.izat.optin=rro
