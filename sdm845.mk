@@ -36,7 +36,7 @@ ENABLE_AB ?= true
 
 TARGET_KERNEL_VERSION := 4.9
 
-TARGET_USES_NQ_NFC := false
+TARGET_USES_NQ_NFC := true
 ifeq ($(TARGET_USES_NQ_NFC),true)
 # Flag to enable and support NQ3XX chipsets
 NQ3XX_PRESENT := true
@@ -54,6 +54,7 @@ WLAN_CHIPSET := qca_cld3
 PRODUCT_PACKAGES += libGLES_android
 
 -include $(QCPATH)/common/config/qtic-config.mk
+-include hardware/qcom/display/config/sdm845.mk
 
 # Video seccomp policy files
 PRODUCT_COPY_FILES += \
@@ -123,19 +124,9 @@ PRODUCT_PACKAGES += \
     antradio_app \
     libvolumelistener
 
-# Display/Graphics
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.composer@2.1-service \
-    android.hardware.graphics.mapper@2.0-impl-qti-display \
-    vendor.qti.hardware.display.allocator@1.0-service \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service \
     android.hardware.configstore@1.0-service \
-    android.hardware.broadcastradio@1.0-impl \
-    modetest
+    android.hardware.broadcastradio@1.0-impl
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -239,7 +230,8 @@ PRODUCT_PROPERTY_OVERRIDES  += \
 
 #system prop for bluetooth SOC type
 PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.bluetooth.soc=cherokee
+    qcom.bluetooth.soc=cherokee \
+    vendor.qcom.bluetooth.soc=cherokee
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
@@ -257,13 +249,6 @@ PRODUCT_PACKAGES += android.hardware.vr@1.0-impl \
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
-
-# for HIDL related packages
-PRODUCT_PACKAGES += \
-  android.hardware.audio@2.0-service \
-  android.hardware.audio@2.0-impl \
-  android.hardware.audio.effect@2.0-impl \
-  android.hardware.soundtrigger@2.0-impl
 
 # Camera HIDL configuration file. Shared by passthrough/binderized camera HAL
 PRODUCT_PACKAGES += camera.device@3.2-impl
