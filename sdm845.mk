@@ -230,7 +230,8 @@ PRODUCT_PROPERTY_OVERRIDES  += \
 
 #system prop for bluetooth SOC type
 PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.bluetooth.soc=cherokee
+    qcom.bluetooth.soc=cherokee \
+    vendor.qcom.bluetooth.soc=cherokee
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
@@ -240,6 +241,9 @@ PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
 
+#Enable KEYMASTER 4.0
+ENABLE_KM_4_0 := true
+
 DEVICE_PACKAGE_OVERLAYS += device/qcom/sdm845/overlay
 
 #VR
@@ -248,13 +252,6 @@ PRODUCT_PACKAGES += android.hardware.vr@1.0-impl \
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
-
-# for HIDL related packages
-PRODUCT_PACKAGES += \
-  android.hardware.audio@2.0-service \
-  android.hardware.audio@2.0-impl \
-  android.hardware.audio.effect@2.0-impl \
-  android.hardware.soundtrigger@2.0-impl
 
 # Camera HIDL configuration file. Shared by passthrough/binderized camera HAL
 PRODUCT_PACKAGES += camera.device@3.2-impl
