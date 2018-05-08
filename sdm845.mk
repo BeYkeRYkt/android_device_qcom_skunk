@@ -158,6 +158,11 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.0-service \
     modetest
 
+ifeq ($(PLATFORM_SDK_VERSION),26)
+PRODUCT_PACKAGES += \
+    android.hardware.broadcastradio@1.0-impl
+endif
+
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
