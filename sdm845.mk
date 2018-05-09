@@ -26,7 +26,7 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := SDM845 for arm64
 
 #Initial bringup flags
-TARGET_USES_AOSP := true
+TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 BOARD_HAVE_QCOM_FM := false
@@ -88,6 +88,7 @@ PRODUCT_PROPERTY_OVERRIDES  += \
     media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
@@ -240,6 +241,9 @@ PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
+
+#Enable KEYMASTER 4.0
+ENABLE_KM_4_0 := true
 
 DEVICE_PACKAGE_OVERLAYS += device/qcom/sdm845/overlay
 
