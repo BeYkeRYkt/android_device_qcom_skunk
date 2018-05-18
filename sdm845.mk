@@ -122,7 +122,13 @@ PRODUCT_PACKAGES += \
     android.hardware.health@1.0-service \
     libhealthd.msm
 
-DEVICE_MANIFEST_FILE := device/qcom/sdm845/manifest.xml
+ifeq ($(PLATFORM_SDK_VERSION),27) # O-MR1
+    DEVICE_MANIFEST_FILE := device/qcom/sdm845/manifest_OMR1.xml
+else ifeq ($(PLATFORM_SDK_VERSION),26) # O
+    DEVICE_MANIFEST_FILE := device/qcom/sdm845/manifest_O.xml
+else
+    $(error "No manifest file found")
+endif
 
 ifeq ($(PLATFORM_SDK_VERSION),27) # O-MR1
 DEVICE_MANIFEST_FILE += device/qcom/sdm845/cas.xml
