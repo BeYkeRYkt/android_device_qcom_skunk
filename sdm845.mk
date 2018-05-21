@@ -26,7 +26,7 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := SDM845 for arm64
 
 #Initial bringup flags
-TARGET_USES_AOSP := true
+TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 BOARD_HAVE_QCOM_FM := false
@@ -88,6 +88,7 @@ PRODUCT_PROPERTY_OVERRIDES  += \
     media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
@@ -267,3 +268,8 @@ TARGET_SCVE_DISABLED := true
 SDM845_DISABLE_MODULE := true
 
 ENABLE_VENDOR_RIL_SERVICE := true
+
+# Enable vndk-sp Libraries
+PRODUCT_PACKAGES += vndk_package
+
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
