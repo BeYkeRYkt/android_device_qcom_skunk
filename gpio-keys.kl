@@ -27,5 +27,7 @@
 key 115   VOLUME_UP
 key 114   VOLUME_DOWN
 key 102   HOME
+key 158   BACK
+key 28    CONFIRM
 key 528   FOCUS
 key 766   CAMERA
