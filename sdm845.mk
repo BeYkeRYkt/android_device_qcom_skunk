@@ -1,6 +1,12 @@
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
+# Enable chain partition for system, to facilitate system-only OTA in Treble.
+BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_SYSTEM_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX := 0
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+
 TARGET_DEFINES_DALVIK_HEAP := true
 $(call inherit-product, device/qcom/common/common64.mk)
 #Inherit all except heap growth limit from phone-xhdpi-2048-dalvik-heap.mk
@@ -76,6 +82,8 @@ ifneq ($(strip $(QCPATH)),)
     PRODUCT_BOOT_JARS += WfdCommon
 endif
 
+PRODUCT_BOOT_JARS += vendor.qti.voiceprint-V1.0-java
+
 # Video platform properties file
 PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/sdm845/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
 
@@ -139,7 +147,8 @@ PRODUCT_PACKAGES += \
 
 # FBE support
 PRODUCT_COPY_FILES += \
-    device/qcom/sdm845/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh
+    device/qcom/sdm845/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh \
+    frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
 
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += device/qcom/sdm845/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
@@ -228,7 +237,6 @@ PRODUCT_PROPERTY_OVERRIDES  += \
 
 #system prop for bluetooth SOC type
 PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.bluetooth.soc=cherokee \
     vendor.qcom.bluetooth.soc=cherokee
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
@@ -282,5 +290,18 @@ WIFI_HIDL_FEATURE_AWARE := true
 # Enable STA + SAP Concurrency.
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
+# Enable SAP + SAP Feature.
+QC_WIFI_HIDL_FEATURE_DUAL_AP := true
+
 TARGET_USES_MKE2FS := true
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+
+TARGET_MOUNT_POINTS_SYMLINKS := false
+
+# propery "ro.vendor.build.security_patch" is checked for
+# CTS compliance so need to make sure its set with following
+# format "YYYY-MM-DD" on production devices.
+#
+ifeq ($(ENABLE_VENDOR_IMAGE), true)
+ VENDOR_SECURITY_PATCH := 2018-06-05
+endif
