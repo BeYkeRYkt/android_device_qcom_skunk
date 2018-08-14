@@ -219,7 +219,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>android.hardware.gnss</name>
         <transport>hwbinder</transport>
-        <version>1.1</version>
+        <version>1.0</version>
         <interface>
             <name>IGnss</name>
             <instance>default</instance>
@@ -463,15 +463,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <version>1.0</version>
         <interface>
             <name>IHostapdVendor</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.wifi.offload</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IOffload</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -844,4 +835,16 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>panoStitching</instance>
         </interface>
     </hal>
+<!--
+    SCVE ObjectTracker hal services
+    <hal format="hidl">
+        <name>vendor.qti.hardware.scve.objecttracker</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IObjectTracker</name>
+            <instance>objectTracker</instance>
+        </interface>
+    </hal>
+-->
 </manifest>
