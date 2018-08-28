@@ -5,7 +5,7 @@ BOARD_AVB_ENABLE := true
 BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_SYSTEM_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_SYSTEM_ROLLBACK_INDEX := 0
-BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
 TARGET_DEFINES_DALVIK_HEAP := true
 $(call inherit-product, device/qcom/common/common64.mk)
@@ -17,6 +17,11 @@ PRODUCT_PROPERTY_OVERRIDES  += \
   dalvik.vm.heapminfree=512k \
   dalvik.vm.heapmaxfree=8m
 
+
+# Property to enable app trigger
+PRODUCT_PROPERTY_OVERRIDES  += \
+  ro.vendor.at_library=libqti-at.so\
+  persist.vendor.qti.games.gt.prof=1
 
 # system prop for opengles version
 #
@@ -35,6 +40,9 @@ PRODUCT_MODEL := SDM845 for arm64
 TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
+
+# RRO configuration
+TARGET_USES_RRO := true
 
 # Default A/B configuration.
 ENABLE_AB ?= true
@@ -92,6 +100,7 @@ ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor.xml
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
@@ -171,9 +180,11 @@ ifneq ($(WLAN_CHIPSET),)
 PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
 endif
 
-# WLAN driver configuration file
+# WLAN configuration file
 PRODUCT_COPY_FILES += \
-    device/qcom/sdm845/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+    device/qcom/sdm845/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
+    frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
+    frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
@@ -253,7 +264,7 @@ KMGK_USE_QTI_SERVICE := true
 #Enable KEYMASTER 4.0
 ENABLE_KM_4_0 := true
 
-ifneq ($(strip $(TARGET_USES_QSSI)),true)
+ifneq ($(strip $(TARGET_USES_RRO)),true)
 DEVICE_PACKAGE_OVERLAYS += device/qcom/sdm845/overlay
 endif
 
