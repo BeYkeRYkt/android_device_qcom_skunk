@@ -126,7 +126,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>vendor.display.color</name>
         <transport>hwbinder</transport>
-        <version>1.1</version>
+        <version>1.2</version>
         <interface>
             <name>IDisplayColor</name>
             <instance>default</instance>
@@ -224,6 +224,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <name>IGnss</name>
             <instance>default</instance>
         </interface>
+        <fqname>@1.0::IGnss/gnss_vendor</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.gnss</name>
@@ -345,6 +346,16 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <name>vendor.qti.hardware.radio.qtiradio</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
+        <interface>
+            <name>IQtiRadio</name>
+            <instance>slot1</instance>
+            <instance>slot2</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.qtiradio</name>
+        <transport>hwbinder</transport>
+        <version>2.0</version>
         <interface>
             <name>IQtiRadio</name>
             <instance>slot1</instance>
@@ -482,24 +493,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <interface>
             <name>IFactory</name>
             <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>com.quicinc.cne.api</name>
-        <transport>hwbinder</transport>
-        <version>1.1</version>
-        <interface>
-            <name>IApiService</name>
-            <instance>cnd</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>com.quicinc.cne.server</name>
-        <transport>hwbinder</transport>
-        <version>2.2</version>
-        <interface>
-            <name>IServer</name>
-            <instance>cnd</instance>
         </interface>
     </hal>
     <hal format="hidl">
