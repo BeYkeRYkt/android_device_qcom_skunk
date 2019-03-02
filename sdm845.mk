@@ -17,11 +17,6 @@ PRODUCT_PROPERTY_OVERRIDES  += \
   dalvik.vm.heapminfree=512k \
   dalvik.vm.heapmaxfree=8m
 
-
-# Property to enable app trigger
-PRODUCT_PROPERTY_OVERRIDES  += \
-  ro.vendor.at_library=libqti-at.so
-
 # system prop for opengles version
 #
 # 196608 is decimal for 0x30000 to report version 3
@@ -77,7 +72,7 @@ PRODUCT_BOOT_JARS += telephony-ext \
                      tcmiface
 PRODUCT_PACKAGES += telephony-ext
 
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := false
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 TARGET_DISABLE_DASH := true
 
@@ -89,7 +84,8 @@ endif
 #    PRODUCT_BOOT_JARS += WfdCommon
 #endif
 
-PRODUCT_BOOT_JARS += vendor.qti.voiceprint-V1.0-java
+# TODO(b/123770188): boot JAR should not depend on /product module
+#PRODUCT_BOOT_JARS += vendor.qti.voiceprint-V1.0-java
 
 # Video platform properties file
 PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/sdm845/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
@@ -113,6 +109,10 @@ PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 # Audio configuration file
 -include $(TOPDIR)hardware/qcom/audio/configs/sdm845/sdm845.mk
 
+USE_CUSTOM_AUDIO_POLICY := 0
+
+USE_LIB_PROCESS_GROUP := 1
+
 PRODUCT_PACKAGES += fs_config_files
 
 ifeq ($(ENABLE_AB), true)
@@ -127,12 +127,21 @@ PRODUCT_PACKAGES += update_engine \
 
 #Boot control HAL test app
 PRODUCT_PACKAGES_DEBUG += bootctl
+
+PRODUCT_STATIC_BOOT_CONTROL_HAL := \
+    bootctrl.sdm845 \
+    librecovery_updater_msm \
+    libz \
+    libcutils
+
+PRODUCT_PACKAGES += \
+    update_engine_sideload
 endif
 
 DEVICE_MANIFEST_FILE := device/qcom/sdm845/manifest.xml
 DEVICE_MATRIX_FILE   := device/qcom/common/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/sdm845/framework_manifest.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/qcom/common/vendor_framework_compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
 
 
 #ANT+ stack
@@ -256,9 +265,6 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
 PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
-
-#Property to set BG App limit
-PRODUCT_PROPERTY_OVERRIDES += ro.vendor.qti.sys.fw.bg_apps_limit=60
 
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
