@@ -63,22 +63,11 @@ PRODUCT_PACKAGES += libGLES_android
 -include $(QCPATH)/common/config/qtic-config.mk
 -include hardware/qcom/display/config/sdm845.mk
 
-# Video seccomp policy files
-PRODUCT_COPY_FILES += \
-    device/qcom/sdm845/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
-    device/qcom/sdm845/seccomp/mediaextractor-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
-
 PRODUCT_BOOT_JARS += telephony-ext \
                      tcmiface
 PRODUCT_PACKAGES += telephony-ext
 
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-
-TARGET_DISABLE_DASH := true
-
-ifneq ($(TARGET_DISABLE_DASH), true)
-    PRODUCT_BOOT_JARS += qcmediaplayer
-endif
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := false
 
 #ifneq ($(strip $(QCPATH)),)
 #    PRODUCT_BOOT_JARS += WfdCommon
@@ -87,31 +76,14 @@ endif
 # TODO(b/123770188): boot JAR should not depend on /product module
 #PRODUCT_BOOT_JARS += vendor.qti.voiceprint-V1.0-java
 
-# Video platform properties file
-PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/sdm845/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
-
-#Vendor Profiles
-PRODUCT_COPY_FILES += device/qcom/sdm845/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
-
-# Video codec configuration files
-ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
-PRODUCT_COPY_FILES += device/qcom/sdm845/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
-
-PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
-PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor.xml
-PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml
-
-PRODUCT_COPY_FILES += device/qcom/sdm845/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
-endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
-
 PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 
-# Audio configuration file
+#Audio configuration files
 -include $(TOPDIR)hardware/qcom/audio/configs/sdm845/sdm845.mk
-
 USE_CUSTOM_AUDIO_POLICY := 0
+USE_LIB_PROCESS_GROUP := true
 
-USE_LIB_PROCESS_GROUP := 1
+-include $(TOPDIR)vendor/qcom/opensource/audio-hal/primary-hal/configs/sdm845/sdm845.mk
 
 PRODUCT_PACKAGES += fs_config_files
 
@@ -176,13 +148,6 @@ PRODUCT_COPY_FILES += device/qcom/sdm845/msm_irqbalance.conf:$(TARGET_COPY_OUT_V
 # Powerhint configuration file
 PRODUCT_COPY_FILES += device/qcom/sdm845/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
-# Camera configuration file. Shared by passthrough/binderized camera HAL
-PRODUCT_PACKAGES += camera.device@3.2-impl
-PRODUCT_PACKAGES += camera.device@1.0-impl
-PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-impl
-# Enable binderized camera HAL
-PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-service
-
 PRODUCT_PACKAGES += \
 		    android.hardware.usb@1.0-service
 
@@ -224,12 +189,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.ambient_temperature.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.ambient_temperature.xml \
     frameworks/native/data/etc/android.hardware.sensor.relative_humidity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.relative_humidity.xml \
     frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml
-
-#Enable debug libraries
-ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-PRODUCT_PACKAGES += libstagefright_debug \
-                    libmediaplayerservice_debug
-endif
 
 # High performance VR feature
 PRODUCT_COPY_FILES += \
@@ -282,13 +241,6 @@ PRODUCT_PACKAGES += android.hardware.vr@1.0-impl \
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
-
-# Camera HIDL configuration file. Shared by passthrough/binderized camera HAL
-PRODUCT_PACKAGES += camera.device@3.2-impl
-PRODUCT_PACKAGES += camera.device@1.0-impl
-PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-impl
-# Enable binderized camera HAL
-PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-service
 
 TARGET_SCVE_DISABLED := true
 #TARGET_USES_QTIC := false
