@@ -5,6 +5,8 @@
 
 BUILD_BROKEN_ANDROIDMK_EXPORTS=true
 BUILD_BROKEN_DUP_COPY_HEADERS=true
+# TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
+BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
 TARGET_BOARD_PLATFORM := sdm845
 TARGET_BOOTLOADER_BOARD_NAME := sdm845
@@ -17,7 +19,7 @@ TARGET_CPU_VARIANT := kryo300
 #TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a75
@@ -107,7 +109,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/wil6210.ko \
     $(KERNEL_MODULES_OUT)/msm_11ad_proxy.ko \
     $(KERNEL_MODULES_OUT)/qca_cld3_wlan.ko \
-    $(KERNEL_MODULES_OUT)/rdbg.ko \
     $(KERNEL_MODULES_OUT)/mpq-adapter.ko \
     $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko \
     $(KERNEL_MODULES_OUT)/tspp.ko \
@@ -177,6 +178,9 @@ TARGET_USES_GRALLOC1 := true
 
 # Enable sensor multi HAL
 USE_SENSOR_MULTI_HAL := true
+
+# Enable sensor Version V_2
+USE_SENSOR_HAL_VER := 2.0
 
 #Enable QTI specific Camera2Client layer
 TARGET_USES_QTI_CAMERA2CLIENT := true
