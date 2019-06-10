@@ -480,7 +480,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>vendor.qti.hardware.wifi.hostapd</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
+        <version>1.1</version>
         <interface>
             <name>IHostapdVendor</name>
             <instance>default</instance>
@@ -507,7 +507,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>vendor.qti.hardware.data.connection</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
+        <version>1.1</version>
         <interface>
             <name>IDataConnection</name>
             <instance>slot1</instance>
@@ -603,19 +603,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </interface>
     </hal>
     <!-- WFD HAL Service -->
-    <hal format="hidl">
-        <name>com.qualcomm.qti.wifidisplayhal</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IHDCPSession</name>
-            <instance>wifidisplayhdcphal</instance>
-        </interface>
-        <interface>
-            <name>IDSManager</name>
-            <instance>wifidisplaydshal</instance>
-        </interface>
-    </hal>
     <hal format="hidl" optional="true">
         <name>vendor.qti.hardware.wifidisplaysession</name>
         <transport>hwbinder</transport>
@@ -855,7 +842,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <version>1.2</version>
         <interface>
             <name>IDevice</name>
-            <instance>default</instance>
+            <instance>qti-default</instance>
             <instance>qti-dsp</instance>
             <instance>qti-gpu</instance>
             <instance>qti-hta</instance>
@@ -878,6 +865,16 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <interface>
             <name>ICapabilityConfigStore</name>
             <instance>default</instance>
+        </interface>
+    </hal>
+    <!-- WifiStats HAL service -->
+    <hal format="hidl">
+        <name>vendor.qti.hardware.wifi.wifilearner</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IWifiStats</name>
+            <instance>wifiStats</instance>
         </interface>
     </hal>
 </manifest>
