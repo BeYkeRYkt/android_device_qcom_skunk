@@ -3,8 +3,6 @@
 # Product-specific compile-time definitions.
 #
 
-BUILD_BROKEN_ANDROIDMK_EXPORTS=true
-BUILD_BROKEN_DUP_COPY_HEADERS=true
 # TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
 BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
@@ -118,6 +116,12 @@ BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 6438256640
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := vendor
 BOARD_EXT4_SHARE_DUP_BLOCKS := true
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x06000000
+endif
+
+# Metadata partition (applicable only for new launches)
+ifeq ($(SHIPPING_API_LEVEL),29)
+BOARD_METADATAIMAGE_PARTITION_SIZE := 16777216
+BOARD_USES_METADATA_PARTITION := true
 endif
 
 #Enable compilation of oem-extensions to recovery
