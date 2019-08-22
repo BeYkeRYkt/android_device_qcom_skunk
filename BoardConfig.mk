@@ -3,8 +3,6 @@
 # Product-specific compile-time definitions.
 #
 
-BUILD_BROKEN_ANDROIDMK_EXPORTS=true
-BUILD_BROKEN_DUP_COPY_HEADERS=true
 # TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
 BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
@@ -120,10 +118,22 @@ BOARD_EXT4_SHARE_DUP_BLOCKS := true
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x06000000
 endif
 
+# Metadata partition (applicable only for new launches)
+ifeq ($(SHIPPING_API_LEVEL),29)
+BOARD_METADATAIMAGE_PARTITION_SIZE := 16777216
+BOARD_USES_METADATA_PARTITION := true
+endif
+
 #Enable compilation of oem-extensions to recovery
 #These need to be explicitly
 ifneq ($(AB_OTA_UPDATER),true)
     TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_msm
+endif
+
+ifeq ($(SHIPPING_API_LEVEL),29)
+  BOARD_SYSTEMSDK_VERSIONS:=29
+else
+  BOARD_SYSTEMSDK_VERSIONS:=28
 endif
 
 #Enable Charging Icon
@@ -243,9 +253,6 @@ ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
 include device/qcom/wlan/skunk/BoardConfigWlan.mk
 endif
 
-#Flag to enable System SDK Requirements.
-#All vendor APK will be compiled against system_current API set.
-BOARD_SYSTEMSDK_VERSIONS:=28
 BOARD_VNDK_VERSION:= current
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PHONY_TARGETS := true
