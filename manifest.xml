@@ -353,6 +353,15 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>slot2</instance>
         </interface>
     </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.internal.deviceinfo</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IDeviceInfo</name>
+            <instance>deviceinfo</instance>
+        </interface>
+    </hal>
     <!-- IMS RTP Service -->
     <hal format="hidl">
         <name>vendor.qti.imsrtpservice</name>
@@ -826,7 +835,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>qti-default</instance>
             <instance>qti-dsp</instance>
             <instance>qti-gpu</instance>
-            <instance>qti-hta</instance>
         </interface>
     </hal>
     <hal format="hidl">
